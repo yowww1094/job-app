@@ -1,6 +1,8 @@
 package com.yow.jobapp.company;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yow.jobapp.job.Job;
+import com.yow.jobapp.review.Review;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,8 +18,13 @@ public class Company {
     private String phone;
     private String address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "company")
     private List<Job> jobs;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "company")
+    private List<Review> reviews;
 
     public Company(long id, String name, String email, String phone, String address) {
         this.id = id;
@@ -75,5 +82,13 @@ public class Company {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
